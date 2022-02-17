@@ -1,6 +1,8 @@
 package deque;
 
-public class ArrayDeque<T> implements Deque<T> {
+import java.util.Iterator;
+
+public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
     private T[] items;
     private int size;
     private int firstPos;
@@ -53,6 +55,51 @@ public class ArrayDeque<T> implements Deque<T> {
         return items[position];
     }
 
+    public Iterator<T> iterator() {
+        return new ArrayIterator();
+    }
+
+    private class ArrayIterator implements Iterator<T> {
+        private int pos;
+
+        public ArrayIterator() {
+            pos = 0;
+        }
+
+        public boolean hasNext() {
+            return pos < size;
+        }
+
+        public T next() {
+            T nextItem = get(pos);
+            pos++;
+            return nextItem;
+        }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null) {
+            return false;
+        }
+        if (getClass() != o.getClass()) {
+            return false;
+        }
+        ArrayDeque<T> p = (ArrayDeque<T>) o;
+        if (p.size() != size()) {
+            return false;
+        }
+        for (int i = 0; i < size; i++) {
+           if (p.get(i) != get(i)) {
+               return false;
+           }
+        }
+        return true;
+    }
+
     @Override
     public T removeFirst() {
         if (size < items.length / 4 && size > defaultCap) {
@@ -88,11 +135,6 @@ public class ArrayDeque<T> implements Deque<T> {
     @Override
     public int size() {
         return size;
-    }
-
-    @Override
-    public boolean isEmpty() {
-        return size == 0;
     }
 
     @Override
