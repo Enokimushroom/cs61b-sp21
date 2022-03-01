@@ -29,7 +29,7 @@ public class GuitarString {
         while (buffer.get(0) == (double) 0) {
             buffer.removeFirst();
             buffer.addLast(Math.random() - 0.5);
-            }
+        }
         //       Make sure that your random numbers are different from each
         //       other. This does not mean that you need to check that the numbers
         //       are different from each other. It means you should repeatedly call

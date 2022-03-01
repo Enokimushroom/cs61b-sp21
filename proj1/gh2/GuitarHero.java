@@ -4,14 +4,14 @@ import edu.princeton.cs.algs4.StdAudio;
 import edu.princeton.cs.algs4.StdDraw;
 
 public class GuitarHero {
-    public static final String keyboard = "q2we4r5ty7u8i9op-[=zxdcfvgbnjmk,.;/' ";
+    public static final String KEYSET = "q2we4r5ty7u8i9op-[=zxdcfvgbnjmk,.;/' ";
 
     public static double frequency(int i) {
         return 440.0 * Math.pow(2, (i - 24) / 12.0);
     }
 
     public static GuitarString createString(char key) {
-        return new GuitarString(frequency(keyboard.indexOf(key)));
+        return new GuitarString(frequency(KEYSET.indexOf(key)));
     }
 
     public static void main(String[] args) {
@@ -23,7 +23,7 @@ public class GuitarHero {
             /* check if the user has typed a key; if so, process it */
             if (StdDraw.hasNextKeyTyped()) {
                 char key = StdDraw.nextKeyTyped();
-                if (keyboard.indexOf(key) != -1) {
+                if (KEYSET.indexOf(key) != -1) {
                     keyType = createString(key);
                     keyType.pluck();
                 }

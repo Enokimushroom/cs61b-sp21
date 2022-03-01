@@ -7,7 +7,7 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
     private int size;
     private int firstPos;
     private int lastPos;
-    private int defaultCap = 8;
+    private final int defaultCap = 8;
 
     public ArrayDeque() {
         items = (T[]) new Object[defaultCap];
@@ -62,7 +62,7 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
     private class ArrayIterator implements Iterator<T> {
         private int pos;
 
-        public ArrayIterator() {
+        ArrayIterator() {
             pos = 0;
         }
 
@@ -85,17 +85,17 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
         if (o == null) {
             return false;
         }
-        if (getClass() != o.getClass()) {
+        if (!(o instanceof ArrayDeque)) {
             return false;
         }
-        ArrayDeque<T> p = (ArrayDeque<T>) o;
-        if (p.size() != size()) {
+        ArrayDeque<?> p = (ArrayDeque<?>) o;
+        if (p.size() != size) {
             return false;
         }
         for (int i = 0; i < size; i++) {
-           if (p.get(i) != get(i)) {
-               return false;
-           }
+            if (p.get(i) != get(i)) {
+                return false;
+            }
         }
         return true;
     }
@@ -147,7 +147,7 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
         System.out.println();
     }
 
-    public static void main(String[] args) {
+    private static void main(String[] args) {
         ArrayDeque<Integer> l = new ArrayDeque<>();
         //for (int i = 0; i < 20; i++) {
         //    l.addLast(i);
