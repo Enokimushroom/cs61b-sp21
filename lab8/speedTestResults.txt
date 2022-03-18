@@ -1,0 +1,14 @@
+add 10000000 strings of length 5 (random)
+class hashmap.MyHashMap: 7.68 sec
+Java's Built-in HashMap: 3.75 sec
+
+add 10000000 strings of length 5 (inorder)
+class hashmap.MyHashMap: 4.10 sec
+Java's Built-in HashMap: 2.47 sec
+
+add 10000000 strings of length 5
+class hashmap.MyHashMapALBuckets: 7.86 sec
+class hashmap.MyHashMapLLBuckets: 8.17 sec
+class hashmap.MyHashMapTSBuckets: 11.20 sec
+class hashmap.MyHashMapHSBuckets: 12.89 sec
+class hashmap.MyHashMapPQBuckets: 10.25 sec
