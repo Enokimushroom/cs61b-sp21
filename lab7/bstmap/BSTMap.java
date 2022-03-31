@@ -120,10 +120,17 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V> {
     @Override
     public Set<K> keySet() {
         Set<K> set = new HashSet<>();
-        for (K key : this) {
-            set.add(key);
-        }
+        addKey(root, set);
         return set;
+    }
+
+    private void addKey(Node node, Set<K> set) {
+        if (node == null) {
+            return;
+        }
+        set.add(node.key);
+        addKey(node.left, set);
+        addKey(node.right, set);
     }
 
     @Override
@@ -132,9 +139,10 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V> {
             throw new IllegalArgumentException();
         }
         if (containsKey(key)) {
+            V v = get(key);
             size--;
             root = remove(root, key);
-            return get(key);
+            return v;
         }
         return null;
     }
