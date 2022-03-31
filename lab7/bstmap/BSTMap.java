@@ -1,5 +1,6 @@
 package bstmap;
 
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
@@ -118,21 +119,78 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V> {
 
     @Override
     public Set<K> keySet() {
-        throw new UnsupportedOperationException();
+        Set<K> set = new HashSet<>();
+        for (K key : this) {
+            set.add(key);
+        }
+        return set;
     }
 
     @Override
     public V remove(K key) {
-        throw new UnsupportedOperationException();
+        if (key == null) {
+            throw new IllegalArgumentException();
+        }
+        if (containsKey(key)) {
+            size--;
+            root = remove(root, key);
+            return get(key);
+        }
+        return null;
     }
 
     @Override
     public V remove(K key, V value) {
-        throw new UnsupportedOperationException();
+        if (key == null) {
+            throw new IllegalArgumentException();
+        }
+        if (containsKey(key)) {
+            V v = get(key);
+            if (v.equals(value)) {
+                size--;
+                root = remove(root, key);
+                return v;
+            }
+        }
+        return null;
+    }
+
+    private Node remove(Node node, K key) {
+        if (node == null) {
+            return null;
+        }
+        if (key == null) {
+            return null;
+        }
+        int cmp = key.compareTo(node.key);
+        if (cmp < 0) {
+            node.left = remove(node.left, key);
+        } else if (cmp > 0) {
+            node.right = remove(node.right, key);
+        } else {
+            if (node.left == null) {
+                return node.right;
+            }
+            if (node.right == null) {
+                return node.left;
+            }
+            Node curNode = node;
+            node = getSwapNode(node.right);
+            node.left = curNode.left;
+            node.right = remove(curNode.right, node.key);
+        }
+        return node;
+    }
+
+    private Node getSwapNode(Node node) {
+        if (node.left == null) {
+            return node;
+        }
+        return getSwapNode(node.left);
     }
 
     @Override
     public Iterator<K> iterator() {
-        throw new UnsupportedOperationException();
+        return keySet().iterator();
     }
 }
